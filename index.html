@@ -35,21 +35,27 @@
             event.preventDefault(); // Prevent default form submission
             var form = event.target;
 
+            var formData = new FormData(form);
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', form.action);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.open('POST', form.action, true);
+            xhr.setRequestHeader('Accept', 'application/json');
 
             xhr.onload = function() {
                 var messageElement = document.getElementById('message');
                 if (xhr.status === 200) {
-                    messageElement.innerHTML = '<div class="alert alert-success">Pengeluaran berhasil dikirim!</div>';
+                    messageElement.innerHTML = '<div class="alert alert-success">Pengeluaran berhasil disubmit!</div>';
                     form.reset();
                 } else {
-                    messageElement.innerHTML = '<div class="alert alert-danger">Pengeluaran tidak berhasil dikirim. Silakan coba lagi.</div>';
+                    messageElement.innerHTML = '<div class="alert alert-danger">Pengeluaran tidak berhasil disubmit. Silakan coba lagi.</div>';
                 }
             };
 
-            xhr.send(new URLSearchParams(new FormData(form)).toString());
+            xhr.onerror = function() {
+                var messageElement = document.getElementById('message');
+                messageElement.innerHTML = '<div class="alert alert-danger">Terjadi kesalahan jaringan. Silakan coba lagi.</div>';
+            };
+
+            xhr.send(formData);
         });
     </script>
 </body>
