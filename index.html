@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,9 +33,10 @@
     <script>
         document.getElementById('expenseForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
-            var form = event.target;
 
+            var form = event.target;
             var formData = new FormData(form);
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', form.action, true);
             xhr.setRequestHeader('Accept', 'application/json');
